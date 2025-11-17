@@ -6,6 +6,8 @@
 <head><meta charset="UTF-8"></head>
 <body>
 
+
+
 <%
 try{
         String username = request.getParameter("username");   
