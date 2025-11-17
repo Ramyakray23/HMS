@@ -9,6 +9,17 @@
 </head>
 
 <body>
+    
+<%
+if (session.getAttribute("username") == null) {
+    response.setStatus(403);   // Forbidden
+    out.println("<h2 style='color:red;'>Access Denied</h2>");
+    out.println("<p>You are not authorized to access this page.</p>");
+    return;
+}
+%>
+
+
 
 <%
 Connection con = null;

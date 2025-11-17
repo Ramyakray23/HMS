@@ -3,51 +3,43 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Login Check</title>
-</head>
+<head><meta charset="UTF-8"></head>
 <body>
 
 <%
-try {
+try{
+        String username = request.getParameter("username");   
+        String password = request.getParameter("password");
 
-    // Read values from login.html form
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/silicon?useSSL=false","root",""
+        );
 
-    Class.forName("com.mysql.jdbc.Driver");
+        PreparedStatement ps=con.prepareStatement(
+            "select * from registration where name = ? and password = ?"
+        );
+        ps.setString(1,username);
+        ps.setString(2,password);
 
-    Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/silicon?useSSL=false",
-        "root",
-        ""
-    );
+        ResultSet x=ps.executeQuery();
+        
+        if(x.next()) {
 
-    // Check if user exists with same username + password
-    PreparedStatement ps = con.prepareStatement(
-        "SELECT * FROM registration WHERE name=? AND password=?"
-    );
+            // ⭐ CREATE SESSION
+            session.setAttribute("username", username);
 
-    ps.setString(1, username);
-    ps.setString(2, password);
-
-    ResultSet rs = ps.executeQuery();
-
-    if(rs.next()) {
-        // Successful login
-        out.println("<h3>Login Successful!</h3>");
-
-        // Redirect to dashboard
-        response.sendRedirect("dashboard.html");
-    } else {
-        out.println("<h3>Invalid username or password!</h3>");
-    }
-
-    con.close();
-
-} catch(Exception e) {
-    out.println("Error: " + e);
+            // redirect to dashboard
+            response.sendRedirect("dashboard.html");
+            return;
+        }
+        else {
+            out.println("<h3>Invalid login!</h3>");
+        }
 }
+catch(Exception e){       
+    out.println(e);       
+}      
 %>
 
 </body>
