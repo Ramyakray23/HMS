@@ -21,26 +21,25 @@ try {
         "root", ""
     );
 
-    // --------- 1. Toggle availability ----------
-    String toggle = request.getParameter("toggle");
-    if (toggle != null) {
-        PreparedStatement tps = con.prepareStatement(
-            "UPDATE doctor SET status = CASE WHEN status='Available' THEN 'Unavailable' ELSE 'Available' END WHERE name=?"
+    // --------- DELETE DOCTOR ----------
+    String del = request.getParameter("delete");
+    if (del != null) {
+        PreparedStatement dps = con.prepareStatement(
+            "DELETE FROM doctor WHERE name=?"
         );
-        tps.setString(1, toggle);
-        tps.executeUpdate();
+        dps.setString(1, del);
+        dps.executeUpdate();
         response.sendRedirect("doctor.jsp");
         return;
     }
 
-    // --------- 2. Insert doctor ----------
+    // --------- INSERT DOCTOR ----------
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         String name = request.getParameter("name");
         String spec = request.getParameter("specialization");
         String ph = request.getParameter("ph_no");
         String email = request.getParameter("email");
         String experienceStr = request.getParameter("experience");
-        String status = request.getParameter("status");
 
         int exp = 0;
         if (experienceStr != null && !experienceStr.trim().equals("")) {
@@ -48,7 +47,7 @@ try {
         }
 
         PreparedStatement ips = con.prepareStatement(
-            "INSERT INTO doctor(name, specialization, ph_no, email, experience, status) VALUES(?,?,?,?,?,?)"
+            "INSERT INTO doctor(name, specialization, ph_no, email, experience) VALUES(?,?,?,?,?)"
         );
 
         ips.setString(1, name);
@@ -56,14 +55,13 @@ try {
         ips.setString(3, ph);
         ips.setString(4, email);
         ips.setInt(5, exp);
-        ips.setString(6, status);
 
         ips.executeUpdate();
         response.sendRedirect("doctor.jsp");
         return;
     }
 
-    // --------- 3. Fetch doctors ----------
+    // --------- FETCH DOCTOR LIST ----------
     ps = con.prepareStatement("SELECT * FROM doctor ORDER BY name");
     rs = ps.executeQuery();
 
@@ -84,7 +82,6 @@ try {
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Experience</th>
-                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -95,12 +92,12 @@ try {
 
                 while (rs != null && rs.next()) {
                     found = true;
+
                     String name = rs.getString("name");
                     String spec = rs.getString("specialization");
                     String ph = rs.getString("ph_no");
                     String email = rs.getString("email");
                     int exp = rs.getInt("experience");
-                    String status = rs.getString("status");
                 %>
 
                 <tr>
@@ -109,17 +106,10 @@ try {
                     <td><%= ph %></td>
                     <td><%= email %></td>
                     <td><%= exp %> years</td>
-                    <td>
-                        <span class="badge <%= status.equals("Available") ? "badge-success" : "badge-danger" %>">
-                            <%= status %>
-                        </span>
-                    </td>
 
                     <td>
-                        <a href="doctor.jsp?toggle=<%= URLEncoder.encode(name, "UTF-8") %>">
-                            <button class="action-btn <%= status.equals("Available") ? "toggle-unavailable" : "toggle-available" %>">
-                                <%= status.equals("Available") ? "Make Unavailable" : "Make Available" %>
-                            </button>
+                        <a href="doctor.jsp?delete=<%= URLEncoder.encode(name, "UTF-8") %>">
+                            <button class="action-btn btn-delete">Delete</button>
                         </a>
                     </td>
                 </tr>
@@ -130,7 +120,7 @@ try {
                 if (!found) {
                 %>
                     <tr>
-                        <td colspan="7" class="empty-state">No doctors registered</td>
+                        <td colspan="6" class="empty-state">No doctors registered</td>
                     </tr>
                 <%
                 }

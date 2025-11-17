@@ -36,7 +36,7 @@ try {
     if (rs.next()) totalPatients = rs.getInt("total");
 
     // 2️⃣ ACTIVE DOCTORS (status = Available)
-    ps = con.prepareStatement("SELECT COUNT(*) AS total FROM doctor WHERE status='Available'");
+    ps = con.prepareStatement("SELECT COUNT(*) AS total FROM doctor");
     rs = ps.executeQuery();
     if (rs.next()) activeDoctors = rs.getInt("total");
 
