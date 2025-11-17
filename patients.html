@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patients | Hospital Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1>🏥 Hospital Management</h1>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a class="nav-btn" href="dashboard.html">Dashboard</a>
+        <a class="nav-btn active" href="patients.html">Patients</a>
+        <a class="nav-btn" href="doctors.html">Doctors</a>
+        <a class="nav-btn" href="appointments.html">Appointments</a>
+        <a class="nav-btn" href="rooms.html">Rooms</a>
+        <a class="nav-btn" href="billing.html">Billing</a>
+        <a class="nav-btn logout-btn" href="login.html">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- PATIENT RECORDS TABLE -->
+    <iframe src="patients.jsp" style="width:100%; border:none; min-height:500px;"></iframe>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

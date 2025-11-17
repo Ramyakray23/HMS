@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billing | Hospital Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1>🏥 Hospital Management</h1>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a class="nav-btn" href="dashboard.html">Dashboard</a>
+        <a class="nav-btn" href="patients.html">Patients</a>
+        <a class="nav-btn" href="doctors.html">Doctors</a>
+        <a class="nav-btn" href="appointments.html">Appointments</a>
+        <a class="nav-btn" href="rooms.html">Rooms</a>
+        <a class="nav-btn active" href="billing.html">Billing</a>
+        <a class="nav-btn logout-btn" href="login.html">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- BILL GENERATION FORM -->
+    <div class="card">
+        <h2>Generate Bill</h2>
+
+        <form action="billing.jsp" method="post">
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Patient Name *</label>
+                    <input type="text" name="name" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Room Charges *</label>
+                    <input type="number" name="room_charge" min="0" step="0.01" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Doctor Fees *</label>
+                    <input type="number" name="doc_fees" min="0" step="0.01" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Medicine Cost</label>
+                    <input type="number" name="med_cost" min="0" step="0.01" value="0" />
+                </div>
+
+                <div class="form-group">
+                    <label>Lab Tests</label>
+                    <input type="number" name="lab_test" min="0" step="0.01" value="0" />
+                </div>
+
+                <div class="form-group">
+                    <label>Other Charges</label>
+                    <input type="number" name="others" min="0" step="0.01" value="0" />
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Method *</label>
+                    <select name="pay_method" required>
+                        <option value="">Select Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Card">Card</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="UPI">UPI</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit">Generate Bill</button>
+        </form>
+    </div>
+
+    <!-- BILL TABLE INSIDE IFRAME -->
+    <iframe src="billing.jsp" style="width:100%; border:none; min-height:500px;"></iframe>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

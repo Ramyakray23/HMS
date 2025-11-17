@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rooms | Hospital Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1>🏥 Hospital Management</h1>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a class="nav-btn" href="dashboard.html">Dashboard</a>
+        <a class="nav-btn" href="patients.html">Patients</a>
+        <a class="nav-btn" href="doctors.html">Doctors</a>
+        <a class="nav-btn" href="appointments.html">Appointments</a>
+        <a class="nav-btn active" href="rooms.html">Rooms</a>
+        <a class="nav-btn" href="billing.html">Billing</a>
+        <a class="nav-btn logout-btn" href="login.html">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ADD ROOM FORM -->
+    <div class="card">
+        <h2>Add New Room</h2>
+
+        <form action="rooms.jsp" method="post">
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Room Number *</label>
+                    <input type="text" name="roomNo" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Room Type *</label>
+                    <select name="type" required>
+                        <option value="">Select Type</option>
+                        <option value="General">General Ward</option>
+                        <option value="Private">Private Room</option>
+                        <option value="ICU">ICU</option>
+                        <option value="Emergency">Emergency</option>
+                        <option value="Operation">Operation Theater</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Floor *</label>
+                    <input type="number" name="floor" min="0" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Bed Capacity *</label>
+                    <input type="number" name="capacity" min="1" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select name="status" required>
+                        <option value="Available">Available</option>
+                        <option value="Occupied">Occupied</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit">Add Room</button>
+        </form>
+    </div>
+
+    <!-- ROOM TABLE IN IFRAME -->
+    <iframe src="rooms.jsp" style="width:100%; border:none; min-height:500px;"></iframe>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

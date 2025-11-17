@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments | Hospital Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1>🏥 Hospital Management</h1>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a class="nav-btn" href="dashboard.html">Dashboard</a>
+        <a class="nav-btn" href="patients.html">Patients</a>
+        <a class="nav-btn" href="doctors.html">Doctors</a>
+        <a class="nav-btn active" href="appointments.html">Appointments</a>
+        <a class="nav-btn" href="rooms.html">Rooms</a>
+        <a class="nav-btn" href="billing.html">Billing</a>
+        <a class="nav-btn logout-btn" href="login.html">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ADD APPOINTMENT FORM -->
+    <div class="card">
+        <h2>Schedule Appointment</h2>
+
+        <form action="appointments.jsp" method="post">
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Patient Name *</label>
+                    <input type="text" name="name" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" name="ph_no" maxlength="10" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Doctor *</label>
+                    <input type="text" name="doctor" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Date *</label>
+                    <input type="date" name="date" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Time *</label>
+                    <input type="time" name="time" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="number" name="age" min="0" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Gender *</label>
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Type *</label>
+                    <select name="type" required>
+                        <option value="">Select Type</option>
+                        <option>Check-up</option>
+                        <option>Follow-up</option>
+                        <option>Emergency</option>
+                        <option>Consultation</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Notes</label>
+                <textarea name="notes"></textarea>
+            </div>
+
+            <button type="submit">Schedule Appointment</button>
+        </form>
+    </div>
+
+    <!-- APPOINTMENT LIST TABLE (inside iframe like doctors page) -->
+    <iframe src="appointments.jsp" style="width:100%; border:none; min-height:500px;"></iframe>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
